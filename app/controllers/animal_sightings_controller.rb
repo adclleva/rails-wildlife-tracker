@@ -2,8 +2,9 @@ class AnimalSightingsController < ApplicationController
     skip_before_action :verify_authenticity_token
     
     def index
-        @animal_sightings = AnimalSighting.all
-        render json: @animal_sightings
+        @sightings = AnimalSighting.where(date: params[:start_date]..params[:end_date])
+        # @sightings = AnimalSighting.all
+        render json: @sightings
     end
 
     def show
@@ -46,4 +47,5 @@ class AnimalSightingsController < ApplicationController
     def animal_sightings_params
         params.require(:animal_sighting).permit(:date, :latitude, :longitude, :animal_id)
     end
+
 end
